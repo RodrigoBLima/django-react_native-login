@@ -124,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-UTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
