@@ -1,21 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+// import Route from "./src/routes/Route";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default function App() {
+const { Navigator, Screen } = createStackNavigator();
+
+function App() {
+  const [isSignedIn, setIsSigned] = useState(false);
+
+  useEffect(() => {
+    if (AsyncStorage.getItem("user_token") !== null) {
+      console.log("tem user token");
+      setIsSigned(true);
+    }
+    // let user_token  = AsyncStorage.getItem("user_token")
+    // console.log(user_token)
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Navigator screenOptions={{ headerShown: false }}>
+        {isSignedIn ? (
+          <>
+            <Screen name="Dashboard" component={Dashboard} />
+          </>
+        ) : (
+          <>
+            <Screen name="LogIn" component={LogIn} />
+            <Screen name="SigIn" component={SigIn} />
+          </>
+        )}
+      </Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
