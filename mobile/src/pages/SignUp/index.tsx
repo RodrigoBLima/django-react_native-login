@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { TextInput, RectButton } from "react-native-gesture-handler";
 import { View,Text, Button } from "react-native";
 import styles from "./styles";
+import  Header from "../../components/Header";
 
 interface SignupProps {
   title?: string;
@@ -40,8 +41,9 @@ const InnerForm = (props: SignupProps & FormikProps<FormValues>) => {
 
   return (
     <View style={styles.container}>
-      
-      <Text  style={styles.title}>Cadastro</Text> 
+      <Header title="Meus proffys favoritos" />
+
+      {/* <Text  style={styles.title}>Cadastro</Text>  */}
       {/* <form > */}
         {/* <InputWrapper> */}
           <Text  style={styles.label}>Nome</Text>
