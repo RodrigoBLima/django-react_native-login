@@ -7,8 +7,8 @@ import * as Yup from "yup";
 // // import Label from "../../components/Label";
 // import Input from "../../components/Input";
 // import InputWrapper from "../../components/InputWrapper";
-import { TextInput } from "react-native-gesture-handler";
-import { View,Text } from "react-native";
+import { TextInput, RectButton } from "react-native-gesture-handler";
+import { View,Text, Button } from "react-native";
 import styles from "./styles";
 
 interface SignupProps {
@@ -41,12 +41,14 @@ const InnerForm = (props: SignupProps & FormikProps<FormValues>) => {
   return (
     <View style={styles.container}>
       
-      <h1>{title}</h1>
-      <form onSubmit={handleSubmit}>
+      <Text  style={styles.title}>Cadastro</Text> 
+      {/* <form > */}
         {/* <InputWrapper> */}
-          <Text>Nome</Text>
+          <Text  style={styles.label}>Nome</Text>
           <TextInput
             // width={50}
+            style={styles.input}
+
             name="name"
             onChange={handleChange}
             onBlur={handleBlur}
@@ -55,9 +57,11 @@ const InnerForm = (props: SignupProps & FormikProps<FormValues>) => {
         {/* </InputWrapper> */}
 
         {/* <InputWrapper> */}
-          <Text>Email</Text>
+          <Text style={styles.label}>Email</Text>
           <TextInput
             // width={50}
+            style={styles.input}
+
             // type="email"
             name="email"
             onChange={handleChange}
@@ -67,8 +71,9 @@ const InnerForm = (props: SignupProps & FormikProps<FormValues>) => {
         {/* </InputWrapper> */}
 
         {/* <InputWrapper> */}
-          <Text>Senha</Text>
+          <Text style={styles.label}>Senha</Text>
           <TextInput
+          style={styles.input}
             // width={50}
             // type="password"
             name="password"
@@ -77,18 +82,20 @@ const InnerForm = (props: SignupProps & FormikProps<FormValues>) => {
             value={values.password}
           />
         {/* </InputWrapper> */}
-
-        <button
+        <RectButton
+        onPress={handleSubmit}
           type="submit"
+          style={[styles.button, styles.buttonPrimary]}
+
           disabled={
             isSubmitting ||
             !!(errors.email && touched.email) ||
             !!(errors.password && touched.password)
           }
         >
-          Sign In
-        </button>
-      </form>
+          <Text  style={styles.buttonText}>Salvar</Text>
+        </RectButton>
+      {/* </form> */}
     </View>
   );
 };

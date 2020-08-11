@@ -13,7 +13,15 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 30,
   },
-  input: {},
+  input: {
+    height: 54,
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    justifyContent: "center",
+    paddingHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 16,
+  },
   title: {
     color: "#fff",
     fontSize: 20,
