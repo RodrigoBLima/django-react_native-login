@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_400Regular",
   },
   button: {
-    height: 70,
+    height: 46,
+    alignItems:"flex-end",
     width: "100%",
     backgroundColor: "#333",
     borderRadius: 8,
@@ -44,6 +45,19 @@ const styles = StyleSheet.create({
     fontFamily: "Archivo_700Bold",
     color: "#fff",
     fontSize: 20,
+  },
+  submitButton: {
+    backgroundColor: "#04d361",
+    height: 56,
+    borderRadius: 8,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  submitButtonText: {
+    color: "#fff",
+    fontFamily: "Archivo_700Bold",
+    fontSize: 16,
   },
 
 });
