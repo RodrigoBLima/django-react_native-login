@@ -6,8 +6,8 @@ import styles from './styles'
 
 export default function LogIn() {
   return (
-    <View>
-      <Text></Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
      </View>
   );
 }

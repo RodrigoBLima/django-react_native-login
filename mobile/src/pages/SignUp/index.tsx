@@ -3,10 +3,13 @@ import React from "react";
 import { withFormik, FormikProps } from "formik";
 import * as Yup from "yup";
 
-import Wrapper from "../../components/InputWrapper";
-import Label from "../../components/Label";
-import Input from "../../components/Input";
-import InputWrapper from "../../components/InputWrapper";
+// import Wrapper from "../../components/InputWrapper";
+// // import Label from "../../components/Label";
+// import Input from "../../components/Input";
+// import InputWrapper from "../../components/InputWrapper";
+import { TextInput } from "react-native-gesture-handler";
+import { View,Text } from "react-native";
+import styles from "./styles";
 
 interface SignupProps {
   title?: string;
@@ -36,43 +39,44 @@ const InnerForm = (props: SignupProps & FormikProps<FormValues>) => {
   } = props;
 
   return (
-    <Wrapper>
+    <View style={styles.container}>
+      
       <h1>{title}</h1>
       <form onSubmit={handleSubmit}>
-        <InputWrapper>
-          <Label>Nome</Label>
-          <Input
-            width={50}
+        {/* <InputWrapper> */}
+          <Text>Nome</Text>
+          <TextInput
+            // width={50}
             name="name"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.name}
           />
-        </InputWrapper>
+        {/* </InputWrapper> */}
 
-        <InputWrapper>
-          <Label>Email</Label>
-          <Input
-            width={50}
-            type="email"
+        {/* <InputWrapper> */}
+          <Text>Email</Text>
+          <TextInput
+            // width={50}
+            // type="email"
             name="email"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.email}
           />
-        </InputWrapper>
+        {/* </InputWrapper> */}
 
-        <InputWrapper>
-          <Label>Senha</Label>
-          <Input
-            width={50}
-            type="password"
+        {/* <InputWrapper> */}
+          <Text>Senha</Text>
+          <TextInput
+            // width={50}
+            // type="password"
             name="password"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.password}
           />
-        </InputWrapper>
+        {/* </InputWrapper> */}
 
         <button
           type="submit"
@@ -85,7 +89,7 @@ const InnerForm = (props: SignupProps & FormikProps<FormValues>) => {
           Sign In
         </button>
       </form>
-    </Wrapper>
+    </View>
   );
 };
 

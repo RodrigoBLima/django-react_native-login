@@ -1,13 +1,25 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { View, Text,Image } from "react-native";
 
-
-import styles from './styles'
+import styles from "./styles";
+import { RectButton } from "react-native-gesture-handler";
+import BackIcon from '../../assets/images/back.png'
 
 export default function Dashboard() {
+  function handleExit(){
+
+  }
+
   return (
-    <View>
-      <Text></Text>
-     </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Dashboard</Text>
+      <RectButton 
+      onPress={handleExit}
+      style={[styles.button, styles.buttonPrimary]}
+      >
+          <Image source={BackIcon} />
+          <Text style={styles.buttonText}>Sair</Text>
+      </RectButton>
+    </View>
   );
 }
