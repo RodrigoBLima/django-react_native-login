@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Dashboard from "./src/pages/Dashboard";
 import SigIn from "./src/pages/SignUp";
 import LogIn from "./src/pages/LogIn";
+import { object } from "yup";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -15,10 +16,11 @@ function App() {
   const [isSignedIn, setIsSigned] = useState(false);
 
   useEffect(() => {
-    if (AsyncStorage.getItem("user_token") !== null) {
-      console.log("tem user token");
-      setIsSigned(true);
-    }
+    console.log("aqui",AsyncStorage.getItem("user_token"))
+    // if (typeof(AsyncStorage.getItem("user_token")) !== object) {
+    //   console.log("tem user token");
+      setIsSigned(false); 
+    // }
     // let user_token  = AsyncStorage.getItem("user_token")
     // console.log(user_token)
   }, []);
