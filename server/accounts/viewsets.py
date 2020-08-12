@@ -1,11 +1,15 @@
 from .models import User
-from rest_framework import viewsets, response, status
+from rest_framework import viewsets, response, status,decorators
 from .serializers import UserSerializer 
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    @decorators.action(detail=False, methods=['get'])
+    def me(self, request, pk=None):
+        return response.Response(self.serializer_class(request.user, context={'request': request}).data)
 
     def create(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
