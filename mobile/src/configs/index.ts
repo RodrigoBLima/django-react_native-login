@@ -1,5 +1,7 @@
 
 export default {
 	API_URL: "http://10.0.0.108:8000/api/v1",
-	BASE_URL : "http://10.0.0.108:8000"
+	BASE_URL : "http://10.0.0.108:8000",
+	CLIENT_SECRET : "",
+	CLIENT_ID: "api"
 };

@@ -9,11 +9,18 @@ import Dashboard from "./src/pages/Dashboard";
 import SigIn from "./src/pages/SignUp";
 import LogIn from "./src/pages/LogIn";
 import { object } from "yup";
+import api from "./src/services";
 
 const { Navigator, Screen } = createStackNavigator();
 
 function App() {
   const [isSignedIn, setIsSigned] = useState(false);
+
+  function getCurrentUser(){
+    api.get('api/v1/accounts/me/').then(res => {
+      console.log(res)
+    })
+  }
 
   useEffect(() => {
     console.log("aqui",AsyncStorage.getItem("user_token"))
