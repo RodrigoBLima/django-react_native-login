@@ -61,14 +61,25 @@ const SigIn: React.FC<SignupProps> = (props) => {
   );
 };
 
-export default withFormik({
-  mapPropsToValues: () => ({ email: "", password: "", name: "" }),
-
-  validationSchema: Yup.object().shape({
-    email: Yup.string().email("Email not valid").required("Email is required"),
+const schema = Yup.object().shape({
+  name: Yup.string()
+    .required('Informe o nome!')
+    .min(5, 'O nome deve conter mais de 5 letras!')
+    .max(100, 'O nome deve conter menos de 100 letras!')
+    .notOneOf(['admin', 'administrador'], 'Esse nome não pode camarada!'),
     password: Yup.string().required("Password is required"),
-    name: Yup.string().required("Name is required"),
-  }),
+  email: Yup.string()
+    .required('Informe o email!')
+    .email('Informe um email válido!')
+})
+
+
+const enhanceWithFormik = withFormik({
+  mapPropsToValues: () => ({ email: "", password: "", name: "" }),
+  isInitialValid: false,
+  validateOnChange: true,
+  validateOnBlur: true,
+  validationSchema:schema,
 
   handleSubmit: (values) => {
     console.log(values);
@@ -87,4 +98,6 @@ export default withFormik({
         // console.log(`Error: ${error.response.data['error_description']}`)
       });
   },
-})(SigIn);
+})
+
+export default enhanceWithFormik(SigIn);
