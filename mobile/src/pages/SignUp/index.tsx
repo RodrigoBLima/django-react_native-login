@@ -87,7 +87,7 @@ const enhanceWithFormik = withFormik({
     console.log(values);
 
     api
-      .post("users/", {
+      .post("api/v1/accounts/", {
         username: values.email,
         password: values.password,
         email: values.email,

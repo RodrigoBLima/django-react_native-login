@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#8257e5",
+    backgroundColor: "#008ae6",
     flex: 1,
     justifyContent: "center",
     padding: 40,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   buttonPrimary: {
-    backgroundColor: "#9871f5",
+    backgroundColor: "#1aa3ff",
   },
   buttonText: {
     fontFamily: "Archivo_700Bold",
