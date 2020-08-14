@@ -1,142 +1,90 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { withFormik, FormikProps } from "formik";
+import { withFormik, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 
-// import Wrapper from "../../components/InputWrapper";
-// // import Label from "../../components/Label";
-// import Input from "../../components/Input";
-// import InputWrapper from "../../components/InputWrapper";
 import { TextInput, RectButton } from "react-native-gesture-handler";
-import { View, Text, Button } from "react-native";
-import styles from "./styles";
+import { View, Text } from "react-native";
+
 import Header from "../../components/Header";
 
-// interface SignupProps {
-//   title?: string;
-// }
+import api from "../../services";
 
-// interface FormValues {
-//   email: string;
-//   password: string;
-//   name: string;
-// }
-// interface MyFormProps {
-//   initialEmail?: string;
-//   initialPassword?: string;
-//   initialName?: string;
-// }
+import styles from "./styles";
 
-const SigIn = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // const {
-  //   values,
-  //   errors,
-  //   touched,
-  //   handleChange,
-  //   handleBlur,
-  //   handleSubmit,
-  //   isSubmitting,
-  //   title,
-  // } = props;
+interface SignupProps {
+  email: string;
+  password: string;
+  name: string;
+}
 
-  function handleSubmitForm() {
-    console.log({
-      name,
-      email,
-      password,
-    });
-  }
+const SigIn: React.FC<SignupProps> = (props) => {
   return (
     <View style={styles.container}>
       <Header title="Realizar cadastro" />
 
-      {/* <Text  style={styles.title}>Cadastro</Text>  */}
-      {/* <form > */}
-      {/* <InputWrapper> */}
-      <Text style={styles.label}>Nome</Text>
-      <TextInput
-        // width={50}
-        style={styles.input}
-        // id="name"
-        // onChange={handleChange}
-        // onBlur={handleBlur}
-        onChangeText={(text) => {
-          setName(text);
-        }}
-        value={name}
-      />
-      {/* </InputWrapper> */}
+      <Form>
+        <Text style={styles.label}>Nome</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => props.setFieldValue("name", text)}
+          value={props.values.name}
+        />
+        <ErrorMessage name="name" />
 
-      {/* <InputWrapper> */}
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        // width={50}
-        style={styles.input}
-        textContentType="emailAddress"
-        // type="email"
-        // id="email"
-        // onChange={handleChange}
-        onChangeText={(text) => {
-          setEmail(text);
-        }}
-        // onBlur={handleBlur("email")}
-        value={email}
-      />
-      {/* </InputWrapper> */}
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          style={styles.input}
+          textContentType="emailAddress"
+          onChangeText={(text) => props.setFieldValue("email", text)}
+          value={props.values.email}
+        />
+        <ErrorMessage name="email" />
 
-      {/* <InputWrapper> */}
-      <Text style={styles.label}>Senha</Text>
-      <TextInput
-        style={styles.input}
-        // width={50}
-        textContentType="password"
-        // name="password"
-        // id="password"
-        // onChange={handleChange}
-        // onBlur={handleBlur}
-        onChangeText={(text) => {
-          setPassword(text);
-        }}
-        value={password}
-      />
-      {/* </InputWrapper> */}
-      <RectButton
-        onPress={handleSubmitForm}
-        // ="submit"
-        style={[styles.button, styles.buttonPrimary]}
-        // disabled={
-        //   isSubmitting ||
-        //   !!(errors.email && touched.email) ||
-        //   !!(errors.password && touched.password)
-        // }
-      >
-        <Text style={styles.buttonText}>Salvar</Text>
-      </RectButton>
-      {/* </form> */}
+        <Text style={styles.label}>Senha</Text>
+        <TextInput
+          style={styles.input}
+          textContentType="password"
+          onChangeText={(text) => props.setFieldValue("password", text)}
+          value={props.values.password}
+        />
+        <ErrorMessage name="password" />
+
+        <RectButton
+          onPress={props.handleSubmit}
+          style={[styles.button, styles.buttonPrimary]}
+        >
+          <Text style={styles.buttonText}>Salvar</Text>
+        </RectButton>
+      </Form>
     </View>
   );
 };
 
-// const SigIn = withFormik<MyFormProps, FormValues>({
-//   mapPropsToValues: (props) => ({
-//     email: props.initialEmail || "",
-//     password: props.initialPassword || "",
-//   }),
+export default withFormik({
+  mapPropsToValues: () => ({ email: "", password: "", name: "" }),
 
-//   validationSchema: Yup.object().shape({
-//     email: Yup.string().email("Email not valid").required("Email is required"),
-//     password: Yup.string().required("Password is required"),
-//   }),
+  validationSchema: Yup.object().shape({
+    email: Yup.string().email("Email not valid").required("Email is required"),
+    password: Yup.string().required("Password is required"),
+    name: Yup.string().required("Name is required"),
+  }),
 
-//   handleSubmit(
-//     { email, password, name }: FormValues,
-//     { props, setSubmitting, setErrors }
-//   ) {
-//     console.log(email, password, name);
-//   },
-// })(InnerForm);
+  handleSubmit: (values) => {
+    console.log(values);
 
-export default SigIn;
+    api
+      .post("users/", {
+        username: values.email,
+        password: values.password,
+        email: values.email,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        // console.log(`Error: ${error.response.data['error_description']}`)
+      });
+  },
+})(SigIn);

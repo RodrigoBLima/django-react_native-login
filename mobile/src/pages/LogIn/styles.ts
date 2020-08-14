@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 30,
     marginTop: 80,
-    fontFamily: "Poppins_400Regular",
+    // fontFamily: "Poppins_400Regular",
   },
   button: {
     height: 46,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#9871f5",
   },
   buttonText: {
-    fontFamily: "Archivo_700Bold",
+    // fontFamily: "Archivo_700Bold",
     color: "#fff",
     fontSize: 20,
   },
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   submitButtonText: {
     color: "#fff",
-    fontFamily: "Archivo_700Bold",
+    // fontFamily: "Archivo_700Bold",
     fontSize: 16,
   },
 
