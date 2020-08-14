@@ -1,6 +1,6 @@
 import React from "react";
 
-import { withFormik, ErrorMessage, Form } from "formik";
+import { withFormik, ErrorMessage, Form,Field } from "formik";
 import * as Yup from "yup";
 
 import { TextInput, RectButton } from "react-native-gesture-handler";
@@ -25,33 +25,33 @@ const SigIn: React.FC<SignupProps> = (props) => {
 
       <Form>
         <Text style={styles.label}>Nome</Text>
-        <TextInput
+        <Field
           style={styles.input}
-          onChangeText={(text) => props.setFieldValue("name", text)}
-          value={props.values.name}
+          name="name"
+          // value={props.values.name}
         />
         <ErrorMessage name="name" />
 
         <Text style={styles.label}>Email</Text>
-        <TextInput
+        <Field
           style={styles.input}
-          textContentType="emailAddress"
-          onChangeText={(text) => props.setFieldValue("email", text)}
-          value={props.values.email}
+          // textContentType="emailAddress"
+          // onChangeText={(text) => props.setFieldValue("email", text)}
+          name="name"
         />
         <ErrorMessage name="email" />
 
         <Text style={styles.label}>Senha</Text>
-        <TextInput
+        <Field
           style={styles.input}
-          textContentType="password"
-          onChangeText={(text) => props.setFieldValue("password", text)}
-          value={props.values.password}
+          // textContentType="password"
+          // onChangeText={(text) => props.setFieldValue("password", text)}
+          name="password"
         />
         <ErrorMessage name="password" />
 
         <RectButton
-          onPress={props.handleSubmit}
+          // onPress={props.handleSubmit}
           style={[styles.button, styles.buttonPrimary]}
         >
           <Text style={styles.buttonText}>Salvar</Text>
@@ -80,6 +80,8 @@ const enhanceWithFormik = withFormik({
   validateOnChange: true,
   validateOnBlur: true,
   validationSchema:schema,
+  displayName: 'SigIn',
+
 
   handleSubmit: (values) => {
     console.log(values);
