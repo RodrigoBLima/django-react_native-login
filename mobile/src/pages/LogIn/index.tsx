@@ -4,6 +4,7 @@ import { withFormik } from "formik";
 import { RectButton, TextInput } from "react-native-gesture-handler";
 
 import AsyncStorage from "@react-native-community/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 import myConfig from "../../configs";
 import api from "../../services";
@@ -14,42 +15,53 @@ interface LoginProps {
   password: string;
 }
 
-const LogIn: React.FC<LoginProps> = (props) => (
-  <View style={styles.container}>
-    <Text style={styles.title}>Login</Text>
+const LogIn: React.FC<LoginProps> = (props) => {
+  const { navigate } = useNavigation();
 
-    <Text style={styles.label}>Email</Text>
-    <TextInput
-      style={styles.input}
-      textContentType="emailAddress"
-      onChangeText={(text) => props.setFieldValue("email", text)}
-      value={props.values.email}
-    />
+  function handleToSignup() {
+    navigate("SigIn");
+  }
 
-    <Text style={styles.label}>Senha</Text>
-    <TextInput
-      style={styles.input}
-      textContentType="password"
-      onChangeText={(text) => props.setFieldValue("password", text)}
-      value={props.values.password}
-    />
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
 
-    <RectButton onPress={props.handleSubmit} style={styles.submitButton}>
-      <Text style={styles.submitButtonText}>Salvar</Text>
-    </RectButton>
+      <Text style={styles.label}>Email</Text>
+      <TextInput
+        style={styles.input}
+        textContentType="emailAddress"
+        onChangeText={(text) => props.setFieldValue("email", text)}
+        value={props.values.email}
+      />
 
-    <Text style={styles.label}>Ainda não possui cadastro?</Text>
-    <RectButton style={[styles.button, styles.buttonPrimary]}>
-      <Text style={styles.buttonText}>Cadastrar</Text>
-    </RectButton>
-  </View>
-);
+      <Text style={styles.label}>Senha</Text>
+      <TextInput
+        style={styles.input}
+        textContentType="password"
+        onChangeText={(text) => props.setFieldValue("password", text)}
+        value={props.values.password}
+      />
+
+      <RectButton onPress={props.handleSubmit} style={styles.submitButton}>
+        <Text style={styles.submitButtonText}>Salvar</Text>
+      </RectButton>
+
+      <Text style={styles.label}>Ainda não possui cadastro?</Text>
+      <RectButton
+        onPress={handleToSignup}
+        style={[styles.button, styles.buttonPrimary]}
+      >
+        <Text style={styles.buttonText}>Cadastrar</Text>
+      </RectButton>
+    </View>
+  );
+};
 
 export default withFormik({
   mapPropsToValues: () => ({ email: "", password: "" }),
 
   handleSubmit: (values) => {
-    console.log(values);
+    console.log("values",values);
 
     api
       .post("o/token/", {
@@ -62,7 +74,10 @@ export default withFormik({
       .then((response) => {
         if (response.status === 200) {
           console.log("foi");
-          AsyncStorage.setItem("user_token", JSON.stringify(response.data.access_token));
+          AsyncStorage.setItem(
+            "user_token",
+            JSON.stringify(response.data.access_token)
+          );
           // localStorage.setItem('refresh_token', response.data.refresh_token);
           console.log(response);
           // //
