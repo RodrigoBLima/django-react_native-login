@@ -17,7 +17,7 @@ function App() {
   function getCurrentUser() {
     console.log("getCurrentUser");
     // return 
-      api.get("api/v1/accounts/me/")
+      api.get("api/v1/users/me/")
       .then((res) => {
         console.log("current", res);
       })
@@ -33,15 +33,47 @@ function App() {
       });
   }
 
+  async function  checkUserSignedIn(){
+    // let context = this;
+    try {
+       let value = await AsyncStorage.getItem('user_token');
+       console.log(value)
+       if (value !== null){
+          // do something 
+          setIsSigned(true);
+          getCurrentUser() 
+       }
+       else {
+          // do something else
+          setIsSigned(false);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+}
+
   useEffect(() => {
     // getCurrentUser();
-    console.log("user_token", AsyncStorage.getItem("user_token"));
+    checkUserSignedIn()
+    // console.log("user_token", AsyncStorage.getItem("user_token"));
     // if (typeof(AsyncStorage.getItem("user_token")) !== object) {
-    //   console.log("tem user token");
-    setIsSigned(false);
+    //   console.log("tem user token"); 
+    // setIsSigned(false);
     // }
     // let user_token  = AsyncStorage.getItem("user_token")
     // console.log(user_token)
+    // let context = this;
+    // try {
+    //    let value = await AsyncStorage.getItem('user');
+    //    if (value != null){
+    //       // do something 
+    //    }
+    //    else {
+    //       // do something else
+    //   }
+    // } catch (error) {
+    //   // Error retrieving data
+    // }
   }, []);
 
   return (
