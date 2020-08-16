@@ -75,7 +75,7 @@ function App() {
           </>
         ) : (
           <>
-            <Screen name="LogIn" component={LogIn} />
+            <Screen name="LogIn" component={LogIn} />            
             <Screen name="SigIn" component={SigIn} />
           </>
         )}

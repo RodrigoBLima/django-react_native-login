@@ -35,7 +35,7 @@ export default function Dashboard() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Dashboard</Text>
+      <Text style={styles.title}>Dashboard, {user.email}</Text>
       <RectButton
         onPress={handleExit}
         style={[styles.button, styles.buttonPrimary]}
