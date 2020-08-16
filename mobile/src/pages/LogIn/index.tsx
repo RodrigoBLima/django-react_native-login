@@ -17,7 +17,6 @@ interface LoginProps {
   values: string;
 }
 
-
 const LogIn: React.FC<LoginProps> = (props) => {
   const { navigate } = useNavigation();
 
@@ -26,7 +25,6 @@ const LogIn: React.FC<LoginProps> = (props) => {
   }
 
   return (
-    
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
 
@@ -65,31 +63,11 @@ export default withFormik({
   mapPropsToValues: () => ({ email: "", password: "" }),
 
   handleSubmit: (values) => {
-    console.log("values", values);
-
-    // navigatetoDashboard(){
-    // }
-    // let data =
-    // const formData = new FormData();
-    // formData.append('data', JSON.stringify(data));
-    // // console.log("formData",formData)
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   }
-    // }
-    // const requestBody = {
-    //   grant_type: 'password',
-    //   client_id: 'api',
-    //   client_secret: '40Sazs1Ixasbf0cUAvUBZnmDZwKTHIKrx2q4DTEv7VVoCXV5at7HOi4Mb5p9ruIwFAGpTe9LO7NHB3RfgYAXcRBxjAnyrdxvvMofJXxQlrdnCcyp0WRFbgrvW1CaYTy0',
-    //   username: 'rodrigo.lima@agriconnected.com',
-    //   password: "rodrigo"
-    // }
-
+    // console.log("values", values);
     const form_data = new FormData();
 
-    form_data.append("username", "rodrigo.lima@agriconnected.com");
-    form_data.append("password", "rodrigo");
+    form_data.append("username", values.email);
+    form_data.append("password", values.password);
 
     form_data.append("grant_type", "password");
     form_data.append("client_id", myConfig.CLIENT_ID);
@@ -123,34 +101,5 @@ export default withFormik({
         console.log("error", error);
         // console.log(`Error: ${error.response.data['error_description']}`)
       });
-    // api
-    //   .post(
-    //     "o/token/", JSON.stringify(requestBody),config
-
-    //     // Headers: {
-    //     //   Content-Type	application/json
-    //     // })
-    //     //   axios({
-    //     //     url: myConfig.BASE_URL + "o/token/",
-    //     //     method: 'POST',
-    //     //     data:formData
-    //   )
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       console.log("foi");
-    //       AsyncStorage.setItem(
-    //         "user_token",
-    //         JSON.stringify(response.data.access_token)
-    //       );
-    //       // localStorage.setItem('refresh_token', response.data.refresh_token);
-    //       console.log(response);
-    //       // //
-    //       // window.location.href = '/';
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //     // console.log(`Error: ${error.response.data['error_description']}`)
-    // });
   },
 })(LogIn);

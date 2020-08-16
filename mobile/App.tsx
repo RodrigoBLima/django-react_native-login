@@ -1,14 +1,17 @@
-
 import React, { useState, useEffect } from "react";
+
 import AsyncStorage from "@react-native-community/async-storage";
-// import Route from "./src/routes/Route";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+
 import Dashboard from "./src/pages/Dashboard";
 import SigIn from "./src/pages/SignUp";
 import LogIn from "./src/pages/LogIn";
+
 import api from "./src/services";
-import axios from 'axios'
+
+
 const { Navigator, Screen } = createStackNavigator();
 
 function App() {
@@ -16,13 +19,20 @@ function App() {
 
   function getCurrentUser() {
     console.log("getCurrentUser");
-    // return 
-      api.get("api/v1/users/me/")
+    // return
+    api
+      .get("api/v1/users/me/")
       .then((res) => {
         console.log("current", res);
       })
-      .then(function (json) {
-        return json;
+      .then((response) => {
+        // return json;
+
+        AsyncStorage.setItem(
+          "client",
+          JSON.stringify(response.data)
+        );
+
       })
       .catch(function (error) {
         console.log(
@@ -33,47 +43,27 @@ function App() {
       });
   }
 
-  async function  checkUserSignedIn(){
+  async function checkUserSignedIn() {
     // let context = this;
     try {
-       let value = await AsyncStorage.getItem('user_token');
-       console.log(value)
-       if (value !== null){
-          // do something 
-          setIsSigned(true);
-          getCurrentUser() 
-       }
-       else {
-          // do something else
-          setIsSigned(false);
+      let value = await AsyncStorage.getItem("user_token");
+      // console.log("user_token ",value);
+      if (value !== null) {
+        // do something
+        setIsSigned(true);
+        getCurrentUser();
+      } else {
+        // do something else
+        setIsSigned(false);
       }
     } catch (error) {
       // Error retrieving data
+      console.log("checkUserSignedIn error", error);
     }
-}
+  }
 
   useEffect(() => {
-    // getCurrentUser();
-    checkUserSignedIn()
-    // console.log("user_token", AsyncStorage.getItem("user_token"));
-    // if (typeof(AsyncStorage.getItem("user_token")) !== object) {
-    //   console.log("tem user token"); 
-    // setIsSigned(false);
-    // }
-    // let user_token  = AsyncStorage.getItem("user_token")
-    // console.log(user_token)
-    // let context = this;
-    // try {
-    //    let value = await AsyncStorage.getItem('user');
-    //    if (value != null){
-    //       // do something 
-    //    }
-    //    else {
-    //       // do something else
-    //   }
-    // } catch (error) {
-    //   // Error retrieving data
-    // }
+    checkUserSignedIn();
   }, []);
 
   return (
