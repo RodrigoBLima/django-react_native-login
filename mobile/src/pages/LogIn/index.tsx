@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text,Alert } from "react-native";
 import { withFormik } from "formik";
 import { RectButton, TextInput } from "react-native-gesture-handler";
 
@@ -18,7 +18,7 @@ interface LoginProps {
 }
 
 const LogIn: React.FC<LoginProps> = (props) => {
-  const { navigate } = useNavigation();
+const { navigate } = useNavigation();
 
   function handleToSignup() {
     navigate("SigIn");
@@ -75,7 +75,7 @@ export default withFormik({
 
     axios({
       method: "POST",
-      url: myConfig.BASE_URL + "o/token/",
+      url:  `${myConfig.BASE_URL}o/token/`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
@@ -83,13 +83,17 @@ export default withFormik({
     })
       .then((response) => {
         if (response.status === 200) {
-          console.log("foi");
+          
           AsyncStorage.setItem(
             "user_token",
             JSON.stringify(response.data.access_token)
           );
+          
+          Alert.alert("Sucesso", "Login realizado com sucesso")
           // navigate("Dashboard");
-
+          // useNavigation().navigate("Dashboard")
+          // NavigatetoDash()
+          // console.log("depois de navegar")
           // navigatetoDashboard()
           // localStorage.setItem('refresh_token', response.data.refresh_token);
           // console.log(response.data);
